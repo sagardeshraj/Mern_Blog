@@ -1,0 +1,42 @@
+.ProfileOfOtherUser{
+    width: 100%;
+
+}
+
+.user_wrapper{
+    width: 80%;
+    margin: auto ;
+    margin-top: 65px;
+}
+.user_wrapper .user_image{
+    width: 100%;
+    margin: auto ;
+    margin-top: 65px;
+    display: flex;
+    flex-direction: column;
+}
+.user_wrapper .user_image img{
+    width: 100%;
+}
+.user_wrapper .user_image span{
+   font-size: 20px;
+   font-weight: 600;
+   color: rgb(39, 39, 39);
+   margin-top: 5px;
+}
+.user_wrapper .user_about{
+  color: black;
+  font-size: 15px;
+}
+
+@media screen and (max-width:420px) {
+    .user_wrapper {
+        width: 92%;
+    }
+}
+@media screen and (max-width:800px) {
+    .user_wrapper {
+        width: 85%;
+    }
+}
+

@@ -1,0 +1,72 @@
+/* Desktop Footer Styles */
+
+.desktop-footer {
+    background: linear-gradient(to bottom, #e9e9e9, #5e5a5a);
+    color: #040303;
+    padding: 20px 0;
+    margin-top: 200px;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer-column {
+    width: 20%;
+  }
+  
+  .footer-column h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .footer-column li {
+    margin-bottom: 5px;
+  }
+  
+  .footer-column a {
+    text-decoration: none;
+    font-family: cursive;
+    font-weight: 400;
+    color: rgb(0, 0, 0);
+    font-size: 12px;
+
+  }
+  
+  .footer-column a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-info {
+    margin-top: 40px;
+  }
+  
+  .footer-info p {
+    font-size: 14px;
+    color: #e1e1e1;
+  }
+  
+  /* Responsive Styles */
+  
+  @media (max-width: 767px) {
+    .footer-container {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .footer-column {
+      width: 40%;
+      margin-bottom: 20px;
+    }
+  }
+  
