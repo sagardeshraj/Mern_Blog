@@ -14,7 +14,7 @@ const router = express.Router();
 const cache = require("memory-cache");
 const { clearCookie } = require("../helper/cookie");
 const { authUser } = require("../middleware/auth");
-const CLIENT_URL = "http://localhost:3000";
+const CLIENT_URL = "https://mern-blog-weld.vercel.app";
 
 router.post("/register", register);
 router.post("/login", login);
