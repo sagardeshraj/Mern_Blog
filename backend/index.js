@@ -26,7 +26,7 @@ app.use(
 
 app.use(
   cors({
-    origin: "https://mern-blog-weld.vercel.app/",
+    origin: "https://mern-blog-weld.vercel.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
