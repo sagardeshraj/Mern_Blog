@@ -34,24 +34,27 @@ function Navbar({ postpage }) {
 
   if (user === null || user === undefined) {
     const getUser = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/login/success`,
-          {
-            withCredentials: true,
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const resObject = response.data;
-        console.log("resObject", resObject);
-        dispatch({ type: "LOGIN", payload: resObject.user });
-        Cookies.set("user", JSON.stringify(resObject.user), { expires: 15,});
-      } catch (err) {
-        console.log(err);
-      }
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/login/success`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) return response.json();
+          throw new Error("authentication has been failed!");
+        })
+        .then((resObject) => {
+          console.log("resObject", resObject);
+          dispatch({ type: "LOGIN", payload: resObject.user });
+          Cookies.set("user", JSON.stringify(resObject.user), { expires: 15 });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
     getUser();
   }
