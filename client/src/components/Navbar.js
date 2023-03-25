@@ -9,15 +9,14 @@ import Cookies from "js-cookie";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { clearCookie } from "../helpers";
-import { useMediaQuery } from 'react-responsive'
-
+import { useMediaQuery } from "react-responsive";
 
 function Navbar({ postpage }) {
-  const view1 = useMediaQuery({ query: '(max-width: 564px)' })
-  const view2 = useMediaQuery({ query: '(max-width: 420px)' })
+  const view1 = useMediaQuery({ query: "(max-width: 564px)" });
+  const view2 = useMediaQuery({ query: "(max-width: 420px)" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [hamberger,setHamberger] = useState(true)
+  const [hamberger, setHamberger] = useState(true);
 
   const navigateToHome = () => {
     navigate("/");
@@ -35,30 +34,29 @@ function Navbar({ postpage }) {
 
   if (user === null || user === undefined) {
     const getUser = async () => {
-      fetch(`${process.env.REACT_APP_BACKEND_URL}/login/success`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          console.log("resObject", resObject);
-          dispatch({ type: "LOGIN", payload: resObject.user });
-          Cookies.set("user", JSON.stringify(resObject.user), { expires: 15 });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/login/success`,
+          {
+            withCredentials: true,
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const resObject = response.data;
+        console.log("resObject", resObject);
+        dispatch({ type: "LOGIN", payload: resObject.user });
+        Cookies.set("user", JSON.stringify(resObject.user), { expires: 15 });
+      } catch (err) {
+        console.log(err);
+      }
     };
     getUser();
   }
+
+ 
 
   const logOut = async () => {
     try {
@@ -75,7 +73,7 @@ function Navbar({ postpage }) {
     }
   };
   const hamburger_fun = async () => {
-    setHamberger(prev=>!prev)
+    setHamberger((prev) => !prev);
   };
 
   return (
@@ -99,22 +97,23 @@ function Navbar({ postpage }) {
         <div className="search_wrap">
           <input type="text" name="" id="" placeholder="write something.." />
         </div>
-        <div className="image" >
-          <BsSearch size={ view1 ? 15 : 20 } />
-          {
-            view2 ? <div className="hamberger" onClick={hamburger_fun} >{hamberger ? <ImMenu size={22} /> : <GiSplitCross size={22} />}</div> : null
-          }
-          
+        <div className="image">
+          <BsSearch size={view1 ? 15 : 20} />
+          {view2 ? (
+            <div className="hamberger" onClick={hamburger_fun}>
+              {hamberger ? <ImMenu size={22} /> : <GiSplitCross size={22} />}
+            </div>
+          ) : null}
         </div>
       </div>
       {user ? (
         <div className="links">
           <Link
-            className={ view1 ? "write extra" : "write" }
+            className={view1 ? "write extra" : "write"}
             to="/write"
             style={{ visibility: `${postpage && "hidden"}` }}
           >
-            <TfiWrite size={ view1 ? 15 : 20 } />
+            <TfiWrite size={view1 ? 15 : 20} />
             <span>Write</span>
           </Link>
           <Link className="user" to="/profile">
@@ -122,14 +121,18 @@ function Navbar({ postpage }) {
               <img src={user?.picture} alt="" />
             </div>
           </Link>
-          <Link to="" className={ view1 ? "logout extra" : "logout" } onClick={() => logOut()}>
+          <Link
+            to=""
+            className={view1 ? "logout extra" : "logout"}
+            onClick={() => logOut()}
+          >
             Log Out
           </Link>
         </div>
       ) : (
         <div className="links">
           <Link className="write" to="/write">
-            <TfiWrite size={ view1 ? 20 : 24 } />
+            <TfiWrite size={view1 ? 20 : 24} />
             <span>Write</span>
           </Link>
           <Link to="/auth" className="logout ">
@@ -137,12 +140,25 @@ function Navbar({ postpage }) {
           </Link>
         </div>
       )}
-      {view2 && <div className={ !hamberger ? 'sidebar' : 'sidebar2' }>
-        <ul>
-          <li> <RiShieldUserLine size={15} /> { user ? <Link to='/profile'>Profile</Link> : <Link to='/auth'>LogIn / SignUp</Link> } </li>
-          <li> <TfiWrite size={15} /> <Link to='/write'>Write</Link> </li>
-        </ul>
-      </div>}
+      {view2 && (
+        <div className={!hamberger ? "sidebar" : "sidebar2"}>
+          <ul>
+            <li>
+              {" "}
+              <RiShieldUserLine size={15} />{" "}
+              {user ? (
+                <Link to="/profile">Profile</Link>
+              ) : (
+                <Link to="/auth">LogIn / SignUp</Link>
+              )}{" "}
+            </li>
+            <li>
+              {" "}
+              <TfiWrite size={15} /> <Link to="/write">Write</Link>{" "}
+            </li>
+          </ul>
+        </div>
+      )}
     </nav>
   );
 }
