@@ -17,7 +17,7 @@ function Navbar({ postpage }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hamberger, setHamberger] = useState(true);
-
+  const sessionCookie = Cookies.get('sessionId');
   const navigateToHome = () => {
     navigate("/");
   };
@@ -41,7 +41,9 @@ function Navbar({ postpage }) {
           Accept: "application/json",
           "Content-Type": "application/json",
           "Access-Control-Allow-Credentials": true,
+          'Cookie': `sessionId=${sessionCookie}`,
         },
+        withCredentials: true
       })
         .then((response) => {
           if (response.status === 200) return response.json();
