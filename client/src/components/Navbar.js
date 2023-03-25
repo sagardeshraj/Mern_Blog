@@ -48,7 +48,7 @@ function Navbar({ postpage }) {
         const resObject = response.data;
         console.log("resObject", resObject);
         dispatch({ type: "LOGIN", payload: resObject.user });
-        Cookies.set("user", JSON.stringify(resObject.user), { expires: 15, domain: "mern-blog-weld.vercel.app"});
+        Cookies.set("user", JSON.stringify(resObject.user), { expires: 15,});
       } catch (err) {
         console.log(err);
       }
