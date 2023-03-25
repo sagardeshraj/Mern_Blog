@@ -41,7 +41,7 @@ function Navbar({ postpage }) {
           Accept: "application/json",
           "Content-Type": "application/json",
           "Access-Control-Allow-Credentials": true,
-          'Cookie': `sessionId=${sessionCookie}`,
+          'cookie': `sessionId=${sessionCookie}`,
         },
         withCredentials: true
       })

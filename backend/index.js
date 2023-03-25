@@ -61,8 +61,9 @@ app.use(
     cookie: {
       maxAge: 15 * 24 * 60 * 60 * 1000,
       path: "/",
-      SameSite: "none",
+      sameSite: "none",
       httpOnly: false,
+      domain: "mern-blog-weld.vercel.app"
     },
     store: store,
   })
