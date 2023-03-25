@@ -51,7 +51,6 @@ router.get("/login/success", async (req, res) => {
       message: "successfull",
       user: {id:req.user._id, name:req.user.name, email:req.user.email , googleId:req.user.googleId, picture:req.user.picture  }
     });
-    req.session.callNext = true;
   } else {
     res.status(200).json({
       success: false,
