@@ -63,12 +63,21 @@ app.use(
       path: "/",
       SameSite: "none",
       httpOnly: false,
-      domain: "mern-blog-weld.vercel.app",
-      secure:true
+      secure:true,
+      domain: "mern-blog-weld.vercel.app"
     },
     store: store,
   })
 );
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'https://mern-blog-weld.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 require("./servises/passport");
