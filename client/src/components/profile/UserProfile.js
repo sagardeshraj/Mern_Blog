@@ -46,7 +46,7 @@ function UserProfile() {
         setError("Maximam 80 character is allowed");
         return;
       } else setError("");
-      if (image != "") {
+      if (image !== "") {
         setLoading(true);
         const path = `${user.name}/profile_image`;
         const img = dataURItoBlob(image);

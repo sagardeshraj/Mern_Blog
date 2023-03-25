@@ -100,7 +100,7 @@ const Editor = ({ placeholder }) => {
         setError("");
       }
 
-      if (image != "") {
+      if (image !== "") {
         setLoading(true);
         const img = dataURItoBlob(image);
         const path = `${user.name}/blog_images`;
