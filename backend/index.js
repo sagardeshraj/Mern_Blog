@@ -63,7 +63,6 @@ app.use(
       path: "/",
       sameSite: "none",
       httpOnly: false,
-      domain: "mern-blog-weld.vercel.app"
     },
     store: store,
   })

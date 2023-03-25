@@ -36,12 +36,10 @@ function Navbar({ postpage }) {
     const getUser = async () => {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/login/success`, {
         method: "GET",
-        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           "Access-Control-Allow-Credentials": true,
-          'cookie': `sessionId=${sessionCookie}`,
         },
         withCredentials: true
       })
