@@ -27,12 +27,14 @@ function Navbar({ postpage }) {
     const getUser = () => {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/login/success`, {
         method: "GET",
-        credentials: "include",
+        withCredentials: true,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           "Access-Control-Allow-Credentials": true,
         },
+        
+        
       })
         .then((response) => {
           if (response.status === 200) return response.json();
@@ -41,7 +43,7 @@ function Navbar({ postpage }) {
         .then((resObject) => {
           console.log("resObject", resObject);
           dispatch({ type: "LOGIN", payload: resObject.user });
-          Cookies.set("user", JSON.stringify(resObject.user), { expires: 15 });
+          Cookies.set("user", JSON.stringify(resObject.user), { expires: 15, secure:true });
         })
         .catch((err) => {
           console.log(err);
