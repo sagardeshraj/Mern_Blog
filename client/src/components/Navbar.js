@@ -23,7 +23,6 @@ function Navbar({ postpage }) {
 
   const { user } = useSelector((state) => ({ ...state }));
 
-  useEffect(() => {
     if (user === null || user === undefined) {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/login/success`, {
         method: "GET",
@@ -49,7 +48,6 @@ function Navbar({ postpage }) {
           console.log(err);
         });
     }
-  }, []);
 
   const logoutFunction = async (e) => {
     e.preventDefault();

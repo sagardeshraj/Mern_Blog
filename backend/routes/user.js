@@ -65,7 +65,8 @@ router.get("/logout", async (req, res) => {
         return res.status(400).json("Couldn't logout");
       }
     });
-    res.clearCookie("sessionId", { path: "/", expires: 0 });
+    res.cookie('session', '', { expires: new Date(0), });
+    res.clearCookie("sessionId");
     res.status(200).json({ success: true });
   } catch (error) {
     return res.status(500).json({ message: error.message });
