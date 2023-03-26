@@ -49,7 +49,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 
-
+app.set("trust proxy", 1)
 app.use(
   session({
     name: "sessionId",
@@ -58,7 +58,6 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 5 * 60 * 60 * 1000,
-      httpOnly:false
     },
     store: store,
   })
