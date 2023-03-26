@@ -6,7 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { clearCookie } from "../helpers";
 import { useMediaQuery } from "react-responsive";
@@ -17,31 +17,22 @@ function Navbar({ postpage }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [hamberger, setHamberger] = useState(true);
-  const sessionCookie = Cookies.get('sessionId');
   const navigateToHome = () => {
     navigate("/");
   };
 
   const { user } = useSelector((state) => ({ ...state }));
 
-  function truncateString(str) {
-    if (str.length > 10) {
-      return str.slice(0, 10) + "...";
-    } else {
-      return str;
-    }
-  }
-
   if (user === null || user === undefined) {
-    const getUser = async () => {
+    const getUser = () => {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/login/success`, {
         method: "GET",
+        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           "Access-Control-Allow-Credentials": true,
         },
-        withCredentials: true
       })
         .then((response) => {
           if (response.status === 200) return response.json();
@@ -56,10 +47,9 @@ function Navbar({ postpage }) {
           console.log(err);
         });
     };
+
     getUser();
   }
-
- 
 
   const logOut = async () => {
     try {

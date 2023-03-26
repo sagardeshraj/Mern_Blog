@@ -11,10 +11,8 @@ const {
 } = require("../controllers/user");
 const passport = require("passport");
 const router = express.Router();
-const cache = require("memory-cache");
-const { clearCookie } = require("../helper/cookie");
 const { authUser } = require("../middleware/auth");
-const CLIENT_URL = "https://mern-blog-weld.vercel.app/";
+const CLIENT_URL = "https://mern-blog-weld.vercel.app";
 
 router.post("/register", register);
 router.post("/login", login);
@@ -40,7 +38,7 @@ router.get(
 router.get("/login/failed", (req, res) => {
   res.status(401).json({
     success: false,
-    message: " Authentication hasbeen failded !  ",
+    message: " Authentication hasbeen failded ! ",
   });
 });
 
