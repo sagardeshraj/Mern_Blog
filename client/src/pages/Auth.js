@@ -92,8 +92,9 @@ function Auth() {
     }
   };
 
-  const signUpWithGoogle = async()=>{
-    window.open(`${process.env.REACT_APP_BACKEND_URL}/auth/google` ,"_self")
+  const signUpWithGoogle = ()=>{
+    // window.open(`${process.env.REACT_APP_BACKEND_URL}/auth/google` ,"_self");
+
   }
 
   return (
