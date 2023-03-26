@@ -12,7 +12,7 @@ const {
 const passport = require("passport");
 const router = express.Router();
 const { authUser } = require("../middleware/auth");
-const CLIENT_URL = "https://mern-blog-weld.vercel.app";
+const CLIENT_URL = "https://openended-hlg4k0x72-sagardeshraj.vercel.app/";
 
 router.post("/register", register);
 router.post("/login", login);

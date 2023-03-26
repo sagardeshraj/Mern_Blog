@@ -16,7 +16,7 @@ var MongoDBStore = require("connect-mongodb-session")(session);
 
 app.use(
   cors({
-    origin: "https://mern-blog-weld.vercel.app",
+    origin: "https://openended-hlg4k0x72-sagardeshraj.vercel.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
@@ -40,7 +40,7 @@ var store = new MongoDBStore(
 );
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://mern-blog-weld.vercel.app'); 
+  res.setHeader('Access-Control-Allow-Origin', 'https://openended-hlg4k0x72-sagardeshraj.vercel.app'); 
   res.setHeader('Access-Control-Allow-Credentials', 'true'); 
   next();
 });
