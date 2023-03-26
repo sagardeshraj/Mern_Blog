@@ -6,7 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import { clearCookie } from "../helpers";
 import { useMediaQuery } from "react-responsive";
