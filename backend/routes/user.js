@@ -32,7 +32,7 @@ router.get(
   passport.authenticate("google", {
     failureRedirect: "/login/failed"
   }),(req, res) => {
-    res.send('successfully authenticated')
+    res.redirect(CLIENT_URL);
   }
 );
 
