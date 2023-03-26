@@ -1,9 +1,10 @@
 import Cookies from "js-cookie";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 import { BeatLoader } from "react-spinners";
+import { getUser } from "../../helpers";
 
 import {
   dataURItoBlob,
@@ -22,6 +23,19 @@ function UserProfile() {
   const [about, setAbout] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [dbPic, setDbPic] = useState("");
+  const [dbAbout, setDbAbout] = useState("");
+
+  useEffect(() => {
+    const fetchMyProfile = async () => {
+      try {
+        const myprofile = await getUser(user.id);
+        setDbPic(myprofile._doc.picture);
+        setDbAbout(myprofile._doc.about);
+      } catch (error) {}
+    };
+    fetchMyProfile();
+  }, []);
 
   const handlePhotoChange = (e) => {
     if (e.target.files.length) {
@@ -82,12 +96,19 @@ function UserProfile() {
       <div className="profile">
         <div className="profile-photo">
           <div className="preview_img">
-            <img src={image ? image : user.picture} />
+            {dbPic ? <img src={dbPic} /> : <img src={image} />}
           </div>
         </div>
-        <div className="image_button"><button  onClick={() => img_ref.current.click()}>
-          Change or add Image
-        </button></div>
+        <div className="image_button">
+          <button
+            onClick={() => {
+              img_ref.current.click();
+              setDbPic("");
+            }}
+          >
+            Change or add Image
+          </button>
+        </div>
         <form
           onSubmit={handleSubmit}
           method="post"
@@ -102,15 +123,28 @@ function UserProfile() {
             hidden
           />
           <label htmlFor="about">About Me:</label>
-          <textarea
-            id="about"
-            name="about"
-            rows="5"
-            value={about ? about : user.about}
-            onChange={(e) => setAbout(e.target.value)}
-          ></textarea>
-          {error && <span>{error}</span>}
-          <button disabled={loading}  type="submit">{ loading ? <BeatLoader size={10} /> : 'Save' }</button>
+          {dbAbout ? (
+            <div className="about_me">
+                {dbAbout}
+            </div>
+          ) : (
+            <textarea
+              id="about"
+              name="about"
+              rows="5"
+              value={about}
+              placeholder='write something...'
+              onChange={(e) => {
+                setAbout(e.target.value);
+                setDbAbout(null);
+              }}
+            ></textarea>
+          )}
+          {error && <span className="my_profile_error" >{error}</span>}
+          <div className="change_about" onClick={()=>setDbAbout('')} >Change Info</div>
+          <button disabled={loading} type="submit">
+            {loading ? <BeatLoader size={10} /> : "Save"}
+          </button>
         </form>
       </div>
       <Footer />

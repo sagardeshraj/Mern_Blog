@@ -26,6 +26,7 @@
 @media screen and (max-width: 691px){
     .intro_section h3 {
         margin: 20px;
+        font-size: 1rem;
     }
 }
 

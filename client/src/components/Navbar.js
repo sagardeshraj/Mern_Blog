@@ -6,7 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { clearCookie } from "../helpers";
 import { useMediaQuery } from "react-responsive";
@@ -24,11 +24,8 @@ function Navbar({ postpage }) {
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    window.addEventListener("load", handleLoad);
-    return () => window.removeEventListener("load", handleLoad);
-  }, []);
-
-  const handleLoad = () => {
+    // window.addEventListener("load", handleLoad);
+    // return () => window.removeEventListener("load", handleLoad);
     if (user === null || user === undefined) {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/login/success`, {
         method: "GET",
@@ -54,18 +51,26 @@ function Navbar({ postpage }) {
           console.log(err);
         });
     }
-  };
+  }, []);
 
-  const logOut = async () => {
+  // const handleLoad = () => {
+
+  // };
+
+  const logoutFunction = async (e) => {
+    e.preventDefault();
     try {
-      Cookies.set("user", "");
-      Cookies.remove("sessionId");
-      clearCookie("sessionId");
-      dispatch({
-        type: "LOGOUT",
-      });
-      await axios.get(`${process.env.REACT_APP_BACKEND_URL}/logout`);
-      window.location.reload();
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/logout`
+      );
+      if (data && data.message === "success") {
+        Cookies.set("user", "");
+        Cookies.remove("sessionId");
+        clearCookie("sessionId");
+        dispatch({
+          type: "LOGOUT",
+        });
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -122,7 +127,7 @@ function Navbar({ postpage }) {
           <Link
             to=""
             className={view1 ? "logout extra" : "logout"}
-            onClick={() => logOut()}
+            onClick={logoutFunction}
           >
             Log Out
           </Link>
@@ -142,18 +147,23 @@ function Navbar({ postpage }) {
         <div className={!hamberger ? "sidebar" : "sidebar2"}>
           <ul>
             <li>
-              {" "}
-              <RiShieldUserLine size={15} />{" "}
+              <RiShieldUserLine size={15} />
               {user ? (
                 <Link to="/profile">Profile</Link>
               ) : (
                 <Link to="/auth">LogIn / SignUp</Link>
-              )}{" "}
+              )}
             </li>
             <li>
-              {" "}
-              <TfiWrite size={15} /> <Link to="/write">Write</Link>{" "}
+              <TfiWrite size={15} /> <Link to="/write">Write</Link>
             </li>
+            {user ? (
+              <li className="hamburger_logout" >
+                <Link to="/" onClick={logoutFunction} >LogOut</Link>
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
       )}

@@ -40,7 +40,7 @@ var store = new MongoDBStore(
 );
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://openended.onrender.com'); 
+  res.setHeader('Access-Control-Allow-Origin', "https://openended.onrender.com"); 
   res.setHeader('Access-Control-Allow-Credentials', 'true'); 
   next();
 });
@@ -58,8 +58,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 5 * 60 * 60 * 1000,
-      domain:'onrender.com',
-      secure:true
+      httpOnly:false
     },
     store: store,
   })
