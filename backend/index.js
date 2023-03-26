@@ -52,17 +52,12 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 app.use(
   session({
-    name: "sessionId",
+    name: "SessionId",
     secret: keys.cookieKey,
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 15 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      domain:'mern-blog-9jrz.onrender.com',
-      path:'/',
-      secure:true,
-      sameSite:'none'
     },
     store: store,
   })
