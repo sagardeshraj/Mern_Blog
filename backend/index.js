@@ -61,7 +61,6 @@ app.use(
       httpOnly:false,
       sameSite:"none",
       secure:true,
-      domain:'onrender.com',
     },
     store: store,
   })

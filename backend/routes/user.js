@@ -30,9 +30,10 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: CLIENT_URL,
-    failureRedirect: "/login/failed",
-  })
+    failureRedirect: "/login/failed"
+  }),(req, res) => {
+    res.send('successfully authenticated')
+  }
 );
 
 router.get("/login/failed", (req, res) => {
