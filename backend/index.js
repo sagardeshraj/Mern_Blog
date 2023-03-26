@@ -39,6 +39,12 @@ var store = new MongoDBStore(
   }
 );
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://mern-blog-weld.vercel.app'); 
+  res.setHeader('Access-Control-Allow-Credentials', 'true'); 
+  next();
+});
+
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
@@ -52,7 +58,11 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 15 * 24 * 60 * 60 * 1000,
-      httpOnly: false,
+      httpOnly: true,
+      domain:'mern-blog-9jrz.onrender.com',
+      path:'/',
+      secure:true,
+      sameSite:'none'
     },
     store: store,
   })
