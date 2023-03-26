@@ -58,6 +58,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 5 * 60 * 60 * 1000,
+      domain:'onrender.com',
+      secure:true
     },
     store: store,
   })
