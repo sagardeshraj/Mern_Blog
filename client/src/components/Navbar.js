@@ -20,9 +20,16 @@ function Navbar({ postpage }) {
   const navigateToHome = () => {
     navigate("/");
   };
-
   const { user } = useSelector((state) => ({ ...state }));
 
+  useEffect(() => {
+    window.addEventListener("load", handleLoad);
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
+  }, []);
+
+  const handleLoad = () => {
     if (user === null || user === undefined) {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/login/success`, {
         method: "GET",
@@ -48,6 +55,7 @@ function Navbar({ postpage }) {
           console.log(err);
         });
     }
+  };
 
   const logoutFunction = async (e) => {
     e.preventDefault();
@@ -150,8 +158,10 @@ function Navbar({ postpage }) {
               <TfiWrite size={15} /> <Link to="/write">Write</Link>
             </li>
             {user ? (
-              <li className="hamburger_logout" >
-                <Link to="/" onClick={logoutFunction} >LogOut</Link>
+              <li className="hamburger_logout">
+                <Link to="/" onClick={logoutFunction}>
+                  LogOut
+                </Link>
               </li>
             ) : (
               ""
