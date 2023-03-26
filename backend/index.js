@@ -52,12 +52,13 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 app.use(
   session({
-    name: "SessionId",
+    name: "sessionId",
     secret: keys.cookieKey,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 15 * 24 * 60 * 60 * 1000,
+      maxAge: 5 * 60 * 60 * 1000,
+      httpOnly:false
     },
     store: store,
   })
