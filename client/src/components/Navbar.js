@@ -27,7 +27,7 @@ function Navbar({ postpage }) {
     const getUser = () => {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/login/success`, {
         method: "GET",
-        withCredentials: true,
+        credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
