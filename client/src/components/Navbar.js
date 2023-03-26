@@ -22,13 +22,6 @@ function Navbar({ postpage }) {
   };
   const { user } = useSelector((state) => ({ ...state }));
 
-  useEffect(() => {
-    window.addEventListener("load", handleLoad);
-    return () => {
-      window.removeEventListener("load", handleLoad);
-    };
-  }, []);
-
   const handleLoad = () => {
     if (user === null || user === undefined) {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/login/success`, {
@@ -61,7 +54,7 @@ function Navbar({ postpage }) {
     e.preventDefault();
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/logout`
+        `${process.env.REACT_APP_BACKEND_URL}/logout`,{withCredentials:true}
       );
       if (data) {
         Cookies.set("user", "");

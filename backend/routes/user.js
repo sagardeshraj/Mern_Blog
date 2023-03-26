@@ -58,7 +58,7 @@ router.get("/login/success", async (req, res) => {
   }
 });
 //Logout
-router.get("/logout", async (req, res) => {
+router.get("/logout", authUser, async (req, res) => {
   try {
     req.logout((err) => {
       if (err) {
