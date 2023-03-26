@@ -16,7 +16,7 @@ var MongoDBStore = require("connect-mongodb-session")(session);
 
 app.use(
   cors({
-    origin: "https://openended-hlg4k0x72-sagardeshraj.vercel.app",
+    origin: "https://openended.onrender.com",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
@@ -40,7 +40,7 @@ var store = new MongoDBStore(
 );
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://openended-hlg4k0x72-sagardeshraj.vercel.app'); 
+  res.setHeader('Access-Control-Allow-Origin', 'https://openended.onrender.com'); 
   res.setHeader('Access-Control-Allow-Credentials', 'true'); 
   next();
 });
@@ -58,8 +58,6 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 5 * 60 * 60 * 1000,
-      sameSite:'none',
-      secure:true
     },
     store: store,
   })
