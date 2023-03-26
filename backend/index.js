@@ -14,18 +14,6 @@ const postRoutes = require("./routes/post.js");
 var MongoDBStore = require("connect-mongodb-session")(session);
 
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://mern-blog-weld.vercel.app');
-  next();
-});
-
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://mern-blog-weld.vercel.app");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
-
 app.use(
   cors({
     origin: "https://mern-blog-weld.vercel.app",
@@ -64,6 +52,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 15 * 24 * 60 * 60 * 1000,
+      httpOnly: false,
     },
     store: store,
   })
