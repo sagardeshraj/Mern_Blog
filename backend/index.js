@@ -59,7 +59,7 @@ app.use(
     cookie: {
       maxAge: 15*24*60*60*1000,
       secure:true,
-      domain:'onrender.com'
+      httpOnly:false
     },
     store: store,
   })
