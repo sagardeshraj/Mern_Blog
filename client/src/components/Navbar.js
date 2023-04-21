@@ -78,7 +78,7 @@ function Navbar({ postpage }) {
         <div className="img">
           <img src="/box.svg" alt="" />
         </div>
-        <span>OpenEnded</span>
+        <span style={{textDecoration:"underline"}} >OpenEnded</span>
       </div>
       <div className="search">
         <div className="cat">
