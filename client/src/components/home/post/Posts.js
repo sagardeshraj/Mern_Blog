@@ -1,32 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , memo  } from "react";
 import "./post.css";
 import { getAllPost } from "../../../helpers";
 import PostCard from "./PostCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ScaleLoader } from "react-spinners";
 import { DotLoader } from "react-spinners";
+import { useDispatch, useSelector } from "react-redux";
+
 
 function Posts() {
   const LIMIT = 6;
-  const [posts, setPosts] = useState([]);
   const [totalPosts, setTotalPost] = useState(0);
   const [activePage, setActivePage] = useState(1);
+  const dispatch =  useDispatch()
+  const {posts} =  useSelector(state => ({...state}))
+
 
   useEffect(() => {
+   if(posts.length === 0 ){
     x();
+   }
   }, []);
 
   const x = async () => {
     try {
+    //  if(posts){
       const data = await getAllPost(activePage, LIMIT);
-      setPosts((prevPosts) => [...prevPosts, ...data.posts]);
+      dispatch({ type : "SET_POSTS" , payload: data.posts})
       setActivePage(activePage + 1);
       setTotalPost(data.total);
+    //  }
     } catch (error) {
       console.log(error);
       throw error;
     }
   };
+
+  
+
+ console.log(posts);
+
 
   return (
     <InfiniteScroll
@@ -46,7 +59,7 @@ function Posts() {
         )
       }
     >
-      {!posts.length ? (
+      { posts && posts.length === 0  ? (
         <div className="post_loader">
           <DotLoader />
         </div>
@@ -57,7 +70,7 @@ function Posts() {
           })}
         </div>
       )}
-    </InfiniteScroll>
+    </InfiniteScroll> 
   );
 }
 

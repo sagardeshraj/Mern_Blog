@@ -16,7 +16,7 @@ function PostCard({post}) {
     }
     
   return (
-    <div className="item">
+    <div className="item" >
       <div className="left">
         <img src={post.image} alt="" />
       </div>

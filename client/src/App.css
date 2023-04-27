@@ -201,8 +201,8 @@ font-family: 'Roboto', sans-serif; */
   padding: 10px;
   background: rgb(255 65 65);
   color: black;
-  border-radius: 5px;
-  padding: 6px;
+  border-radius: 0px;
+  padding: 10px;
 }
 .sidebar ul li a {
   text-decoration: none;

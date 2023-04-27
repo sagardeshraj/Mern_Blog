@@ -2,9 +2,6 @@ const jwt = require("jsonwebtoken");
 
 exports.authUser = async (req, res, next) => {
   try {
-    if (req.isAuthenticated()) {
-      return next();
-    } else {
       let tmp = req.header("Authorization");
       const token = tmp ? tmp.slice(7, tmp.length) : "";
       if (!token) {
@@ -17,7 +14,6 @@ exports.authUser = async (req, res, next) => {
         req.user = user;
         next();
       });
-    }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

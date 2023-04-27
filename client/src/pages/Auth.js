@@ -113,6 +113,7 @@ function Auth() {
             }}
             onClick={() => {
               setState("Log In");
+              setError("")
             }}
           >
             Log In
@@ -125,6 +126,8 @@ function Auth() {
             }}
             onClick={() => {
               setState("Sign Up");
+              setError("")
+              
             }}
           >
             Sign Up

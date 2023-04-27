@@ -74,11 +74,11 @@ function Navbar({ postpage }) {
 
   return (
     <nav className="navbar">
-      <div className="rocket" onClick={navigateToHome}>
+      <div className="rocket" onClick={()=>navigateToHome()}>
         <div className="img">
           <img src="/box.svg" alt="" />
         </div>
-        <span>OpenEnded</span>
+        <span style={{textDecoration:"underline"}} >OpenEnded</span>
       </div>
       <div className="search">
         <div className="cat">

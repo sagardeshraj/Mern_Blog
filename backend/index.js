@@ -16,11 +16,12 @@ var MongoDBStore = require("connect-mongodb-session")(session);
 
 app.use(
   cors({
-    origin: "https://openended.onrender.com",
+    origin: ["https://openended.onrender.com", "http://localhost:3000" ],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
 );
+
 
 mongoose.set("strictQuery", false);
 mongoose.connect(keys.mongoURI, () => {
@@ -39,11 +40,11 @@ var store = new MongoDBStore(
   }
 );
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', "https://openended.onrender.com"); 
-  res.setHeader('Access-Control-Allow-Credentials', 'true'); 
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', "https://openended.onrender.com"); 
+//   res.setHeader('Access-Control-Allow-Credentials', 'true'); 
+//   next();
+// });
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
